@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>your cart</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>product</th>
+            <th>price</th>
+            <th>quantity</th>
+            <th>remove</th>
+            <td>total</td>
+            <td>place order</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{item.product.name}}
+                <img src="" alt="">
+            </td>
+            <td>{{item.product.price}}</td>
+            <td>
+                <form method="post" action="{% url 'update_cart' item.product.id %}">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                    <button type="submit">update</button>
+                </form>
+            </td>
+            <td>
+                <form method="post" action="{% url 'remove_from_cart' item.product.id %}">
+                    {% csrf_token %}
+                    <button type="submit">remove</button>
+                </form>
+            </td>
+            <td>₹{{ item.total_price }}</td>
+        </tr>
+        {% endfor %}
+        <p>Total cart price: {{total_price}}</p>
+        
+      
+    </tbody>
+      {% if cart_items %}
+        <form method="post" action="{% url 'checkout'%}">
+            {% csrf_token %}
+            <button type="submit">place order</button>
+        </form>
+        {%endif%}
+</table>
+
+<style>
+    table,tr,td,th{
+        border: 1.7px solid black;
+        border-collapse: collapse;
+        padding: 60px;
+    }
+</style>
+{% endblock %}
+

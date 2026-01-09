@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+{% block content %}
+<h2>Manage orders</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Status</th>
+        <th>Plased on</th>
+        <th>update</th>
+        <th>delete</th>   
+    </tr>
+    
+    {% for order in orders %}
+    <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.user.username}}</td>
+        <td>{{order.status}}</td>
+        <td>{{order.created_at}}</td>
+        <td><a href="{% url 'update_order_status' order.id %}">update</a></td>
+        <td><a href="{% url 'delete_order' order.id%}">delete</a></td>
+        
+    </tr>
+    {% endfor %}
+</table>
+
+<style>
+    table,tr,td,th{
+        border: 1.7px solid black;
+        border-collapse: collapse;
+        padding: 60px;
+    }
+</style>
+{%endblock%}

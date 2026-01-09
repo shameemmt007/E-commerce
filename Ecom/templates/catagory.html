@@ -1,0 +1,9 @@
+{%extends 'base.html'%}
+
+{%block content%}
+    {%for i in catagory%}
+        <p><a href="{%url 'catgry_prodt' i.id%}">{{i.name}}</p>
+        <img src="{{i.image}}" alt="">
+        </a>
+    {%endfor%}
+{%endblock%}
